@@ -4,7 +4,7 @@
 
 The **Fortnite Power Ranking Calculator** is a simple GUI application that calculates the PR (Power Ranking) gained based on a player's placement in various Fortnite tournaments. The program allows users to select an event, input their ranking, and receive a PR estimate.
 
-Ideally, an accuracy of at least 95% is to be achieved in all cups. Regular linear interpolation models seem to achieve this already,
+Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that regular linear interpolation models seem to achieve this already.
 
 ## Features
 
