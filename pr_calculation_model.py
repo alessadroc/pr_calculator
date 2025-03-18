@@ -12,7 +12,8 @@ def calculate_pr(event, place):
             pr_bracket = events.solo_cash_cup_opens()
         
         elif event == "Solo Cash Cup Finals":
-            event_pr_bonus = 200
+            pr_bracket = events.solo_cash_cup_finals()
+            
         elif event == "FNCS Division 1":
             event_pr_bonus = 500
         elif event == "FNCS Division 2":
