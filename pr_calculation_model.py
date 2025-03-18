@@ -13,15 +13,18 @@ def calculate_pr(event, place):
         
         elif event == "Solo Cash Cup Finals":
             pr_bracket = events.solo_cash_cup_finals()
-            
+
         elif event == "FNCS Division 1":
-            event_pr_bonus = 500
+            pr_bracket = events.fncs_division_1()
+
         elif event == "FNCS Division 2":
-            event_pr_bonus = 400
+            pr_bracket = events.fncs_division_2()
+
         elif event == "FNCS Division 3":
-            event_pr_bonus = 300
+            pr_bracket = events.fncs_division_3()
+            
         elif event == "Performance Evaluation":
-            event_pr_bonus = 150
+            event_pr_bonus = events.performance_evaluation()
 
         # logic for interpolation
         prev_low, prev_high = None, None
