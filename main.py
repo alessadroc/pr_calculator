@@ -11,12 +11,12 @@ event = StringVar()
 placement = StringVar()
 output_var = StringVar(value="0") 
 
-# Function to call the imported PR calculation
+# Calculation Model Caller
 def on_calculate():
     event_value = event.get()
     place_value = placement.get()
-    result = calculate_pr(event_value, place_value)  # Call imported function
-    output_var.set(result)  # Update UI with result
+    result = calculate_pr(event_value, place_value)
+    output_var.set(result)
 
 # Frame
 frm = ttk.Frame(root, padding=10)
