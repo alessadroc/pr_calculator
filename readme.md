@@ -20,13 +20,21 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 
 ## Future Plans
 
-- Implement interpolation for more accurate PR calculations.
+- More accurate calculation models beyond linear interpolation 
 - Improve the UI for better user experience.
+- Support all PR events, finals/opens clearly distinguished
 
 ## Tech Stack
 
 - Python 3.x
 - Tkinter (built-in with Python)
+
+## Supported Events
+
+- Solo Cash Cup Opens
+- Solo Cash Cup Finals
+- Performance Evaluation Finals
+- FNCS Divisionals (1, 2, 3) - All opens.
 
 ## Contribute/Run
 
