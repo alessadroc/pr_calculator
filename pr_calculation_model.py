@@ -33,14 +33,13 @@ def calculate_pr(event, place):
         for (low, high), pr_value in pr_bracket.items():
             if low <= rank <= high:
                 # if rank is on a boundary, return exact PR
-                return pr_value + event_pr_bonus
+                return pr_value
 
             if prev_low is not None:
                 if prev_high < rank < low:
-                    # interpolate between (prev_high, low) using (prev_pr, pr_value)
+                    # # y = y1 + ((x-x1)*(y2-y1)/(x2-x1))
                     PR1, PR2 = prev_pr, pr_value
                     P1, P2 = prev_high, low
-
                     interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))
                     return round(interpolated_pr, 1) + event_pr_bonus
 
