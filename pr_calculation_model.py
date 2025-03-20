@@ -42,7 +42,7 @@ def calculate_pr(event, place):
                     P1, P2 = prev_high, low
 
                     interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))
-                    return round(interpolated_pr) + event_pr_bonus
+                    return round(interpolated_pr, 1) + event_pr_bonus
 
             # retain brackets
             prev_low, prev_high = low, high

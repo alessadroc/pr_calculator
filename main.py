@@ -1,15 +1,21 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from pr_calculation_model import calculate_pr
+from PIL import Image, ImageTk
 
 # Root window
-root = Tk()
+root = tk.Tk()
 root.title("Fortnite Power Ranking Calculator")
 
+# Power Ranking icon
+icon = Image.open('pr_icon.png')
+photo = ImageTk.PhotoImage(icon)
+root.wm_iconphoto(False, photo)
+
 # Variables
-event = StringVar()
-placement = StringVar()
-output_var = StringVar(value="0") 
+event = tk.StringVar()
+placement = tk.StringVar()
+output_var = tk.StringVar(value="0") 
 
 # Calculation Model Caller
 def on_calculate():
@@ -48,7 +54,7 @@ button = ttk.Button(frm, text="Calculate", width=30, command=on_calculate)
 button.grid(column=1, row=3, sticky="w")
 
 # Output Labels
-output_text_lbl = ttk.Label(frm, text="PR Gained from this event:", anchor="w")
+output_text_lbl = ttk.Label(frm, text="PR Gained", anchor="w")
 output_text_lbl.grid(column=0, row=4, sticky="w")
 
 output_lbl = ttk.Label(frm, textvariable=output_var, anchor="w")
