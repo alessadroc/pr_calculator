@@ -5,7 +5,6 @@ events = Events()
 def calculate_pr(event, place):
     try:
         rank = int(place)
-        event_pr_bonus = 0
         pr_bracket = {}
         
         if event == "Solo Cash Cup Opens":
@@ -49,7 +48,7 @@ def calculate_pr(event, place):
                     PR1, PR2 = prev_pr, pr_value
                     P1, P2 = prev_high, low
                     interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))
-                    return round(interpolated_pr, 2) + event_pr_bonus
+                    return round(interpolated_pr, 2)
 
             # retain brackets
             prev_low, prev_high = low, high
