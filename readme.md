@@ -28,6 +28,7 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 
 - Python 3.x
 - Tkinter (built-in with Python)
+- PIL
 
 ## Supported Events
 
