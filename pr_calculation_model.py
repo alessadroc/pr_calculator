@@ -12,6 +12,8 @@ def calculate_pr(event, place):
             pr_bracket = events.solo_cash_cup_opens()
         
         elif event == "Solo Cash Cup Finals":
+            if rank > 600:
+                return "Invalid rank."
             pr_bracket = events.solo_cash_cup_finals()
 
         elif event == "FNCS Division 1":
@@ -27,6 +29,8 @@ def calculate_pr(event, place):
             pr_bracket = events.performance_evaluation_opens()
         
         elif event == "Performance Evaluation Finals":
+            if rank > 33:
+                return "Invalid rank."
             pr_bracket = events.performance_evaluation_finals()
 
 
