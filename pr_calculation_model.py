@@ -8,28 +8,45 @@ def calculate_pr(event, place):
         pr_bracket = {}
         
         if event == "Solo Cash Cup Opens":
+            if rank > 10000:
+                return "0"
+            
             pr_bracket = events.solo_cash_cup_opens()
         
         elif event == "Solo Cash Cup Finals":
             if rank > 600:
                 return "Invalid rank."
+            
             pr_bracket = events.solo_cash_cup_finals()
 
         elif event == "FNCS Division 1":
+            if rank > 10000:
+                return "0"
+            
             pr_bracket = events.fncs_division_1()
 
         elif event == "FNCS Division 2":
+            if rank > 10000:
+                return "0"
+            
             pr_bracket = events.fncs_division_2()
 
         elif event == "FNCS Division 3":
+            if rank > 10000:
+                return "0"
+            
             pr_bracket = events.fncs_division_3()
             
         elif event == "Performance Evaluation Opens":
+            if rank > 10000:
+                return "0"
+            
             pr_bracket = events.performance_evaluation_opens()
         
         elif event == "Performance Evaluation Finals":
             if rank > 33:
                 return "Invalid rank."
+            
             pr_bracket = events.performance_evaluation_finals()
 
 
@@ -44,7 +61,7 @@ def calculate_pr(event, place):
 
             if prev_low is not None:
                 if prev_high < rank < low:
-                    # # y = y1 + ((x-x1)*(y2-y1)/(x2-x1))
+                    # y = y1 + ((x-x1)*(y2-y1)/(x2-x1))
                     PR1, PR2 = prev_pr, pr_value
                     P1, P2 = prev_high, low
                     interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))

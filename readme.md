@@ -21,7 +21,6 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 ## Future Plans
 
 - More accurate calculation models beyond linear interpolation 
-- Improve the UI for better user experience.
 - Support all PR events, finals/opens clearly distinguished
 
 ## Tech Stack
