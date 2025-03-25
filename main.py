@@ -32,7 +32,7 @@ frm.grid()
 dropdown_lbl = tk.Label(frm, text="Event:", anchor="w", pady=5)
 dropdown_lbl.grid(column=0, row=1, sticky="w")
 
-entry_label = tk.Label(frm, text="Rank for this event:", anchor="w", pady=5)
+entry_label = tk.Label(frm, text="Rank for this event: #", anchor="w", pady=5)
 entry_label.grid(column=0, row=2, sticky="w")
 
 # Dropdown
@@ -46,7 +46,7 @@ combo = ttk.Combobox(
 combo.grid(column=1, row=1, sticky="w")
 
 # Placement Entry
-entry = tk.Entry(frm, width=30, textvariable=placement, relief="flat")
+entry = tk.Entry(frm, width=30, textvariable=placement, relief="flat", border=3)
 entry.grid(column=1, row=2, sticky="w")
 
 # Calculate Button
