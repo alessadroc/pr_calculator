@@ -50,27 +50,36 @@ def calculate_pr(event, place):
             pr_bracket = events.performance_evaluation_finals()
 
 
-        # logic for interpolation
-        prev_low, prev_high = None, None
-        prev_pr = None
+        # Changed so that we always perform linear interpolation
 
-        for (low, high), pr_value in pr_bracket.items():
-            if low <= rank <= high:
-                # if rank is on a boundary, return exact PR
+        sorted_brackets = sorted(pr_bracket.items(), key=lambda x: x[0][0])
+
+        for (low, high), pr_value in sorted_brackets:
+            if low == rank or high == rank:
                 return pr_value
 
-            if prev_low is not None:
-                if prev_high < rank < low:
-                    # y = y1 + ((x-x1)*(y2-y1)/(x2-x1))
-                    PR1, PR2 = prev_pr, pr_value
-                    P1, P2 = prev_high, low
-                    interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))
-                    return round(interpolated_pr, 2)
+        lower_bound = None
+        upper_bound = None
 
-            # retain brackets
-            prev_low, prev_high = low, high
-            prev_pr = pr_value
+        for i in range(len(sorted_brackets) - 1):
+            (low1, high1), pr1 = sorted_brackets[i]
+            (low2, high2), pr2 = sorted_brackets[i + 1]
 
+            if low1 <= rank <= high1:
+                interpolated_pr = pr1 + ((rank - low1) * (pr2 - pr1) / (high1 - low1))
+                return round(interpolated_pr, 2)
+
+            if high1 < rank < low2:
+                lower_bound = (high1, pr1)
+                upper_bound = (low2, pr2)
+        
+        # If placement falls between two defined ranges
+        if lower_bound and upper_bound:
+            (P1, PR1) = lower_bound
+            (P2, PR2) = upper_bound
+            interpolated_pr = PR1 + ((rank - P1) * (PR2 - PR1) / (P2 - P1))
+            return round(interpolated_pr, 1)
+                   
         return "Placement out of range"
 
     except ValueError:

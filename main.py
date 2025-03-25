@@ -41,7 +41,7 @@ combo = ttk.Combobox(
     state="readonly",
     values=["Solo Cash Cup Opens", "Solo Cash Cup Finals", "FNCS Division 1", "FNCS Division 2", "FNCS Division 3", "Performance Evaluation Opens", "Performance Evaluation Finals"],
     width=30,
-    textvariable=event,
+    textvariable=event
 )
 combo.grid(column=1, row=1, sticky="w")
 
