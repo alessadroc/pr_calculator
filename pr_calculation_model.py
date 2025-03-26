@@ -49,8 +49,7 @@ def calculate_pr(event, place):
             
             pr_bracket = events.performance_evaluation_finals()
 
-
-        # Changed so that we always perform linear interpolation
+        # Interpolation logic
 
         sorted_brackets = sorted(pr_bracket.items(), key=lambda x: x[0][0])
 
