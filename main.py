@@ -24,8 +24,6 @@ def on_calculate():
     result = calculate_pr(event_value, place_value)
     output_var.set(result)
 
-
-
 # Frame
 frm = tk.Frame(root, padx=5, pady=5)
 frm.grid()
