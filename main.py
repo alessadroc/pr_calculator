@@ -19,10 +19,21 @@ output_var = tk.StringVar(value="0")
 
 # Calculation Model Caller
 def on_calculate():
+
+    result = None
     event_value = event.get()
     place_value = placement.get()
+
     result = calculate_pr(event_value, place_value)
     output_var.set(result)
+    
+    # New graph button
+    graph_btn = tk.Button(frm, text="Graph", width=30, bg="purple", fg="white", command=on_calculate, relief="flat")
+    
+    if result is not None:
+        graph_btn.grid(column=1, row=5, sticky='w')
+    else:
+        graph_btn.destroy()
 
 # Frame
 frm = tk.Frame(root, padx=5, pady=5)
@@ -57,7 +68,7 @@ button.grid(column=1, row=3, sticky="w")
 output_text_lbl = tk.Label(frm, text="PR Gained", anchor="w", pady=5)
 output_text_lbl.grid(column=0, row=4, sticky="w")
 
-output_lbl = tk.Label(frm, font=("System", 15), fg="purple", textvariable=output_var, anchor="w")
+output_lbl = tk.Label(frm, font=("System", 15), fg="purple", textvariable=output_var, anchor="w", pady=10)
 output_lbl.grid(column=1, row=4, sticky="w")
 
 # Run the application
