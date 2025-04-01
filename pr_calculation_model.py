@@ -15,7 +15,7 @@ def calculate_pr(event, place):
         
         elif event == "Solo Cash Cup Finals":
             if rank > 600:
-                return "Invalid rank."
+               return "Rank is too high."
             
             pr_bracket = events.solo_cash_cup_finals()
 
@@ -45,7 +45,7 @@ def calculate_pr(event, place):
         
         elif event == "Performance Evaluation Finals":
             if rank > 33:
-                return "Invalid rank."
+                return "Rank is too high."
             
             pr_bracket = events.performance_evaluation_finals()
 
