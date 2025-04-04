@@ -18,7 +18,7 @@ output_var = tk.StringVar(value="0")
 
 # Do this when Graph is clicked
 def graph_result():
-    result_graph = Graph(root, event)
+    result_graph = Graph(root, event, placement)
     result_graph.window()
 
 # Do this when calculate is clicked
