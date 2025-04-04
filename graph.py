@@ -1,4 +1,5 @@
 import tkinter as tk
+from events import Events
 
 class Graph:
     def __init__(self, root, event, placement):
@@ -9,9 +10,3 @@ class Graph:
     def window(self):
         graph_window = tk.Toplevel(self.root)
         graph_window.title(f"Graph of {self.event} placement")
-
-        window_frm = tk.Frame(graph_window)
-        window_frm.grid()
-
-        test_lbl = tk.Label(window_frm, text="Test Label")
-        test_lbl.grid(row=0,column=0)
