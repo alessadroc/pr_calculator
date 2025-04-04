@@ -1,23 +1,27 @@
 import tkinter as tk
 from tkinter import ttk
-from pr_calculation_model import calculate_pr
 from PIL import Image, ImageTk
+from pr_calculation_model import calculate_pr
+from graph import Graph
 
-# Root window
+# Fundamentals
 root = tk.Tk()
 root.title("Fortnite Power Ranking Calculator")
 
-# Power Ranking icon
 icon = Image.open('pr_icon.png')
 photo = ImageTk.PhotoImage(icon)
 root.wm_iconphoto(False, photo)
 
-# Variables
 event = tk.StringVar()
 placement = tk.StringVar(root)
-output_var = tk.StringVar(value="0") 
+output_var = tk.StringVar(value="0")
 
-# Calculation Model Caller
+# Do this when Graph is clicked
+def graph_result():
+    result_graph = Graph(root, event)
+    result_graph.window()
+
+# Do this when calculate is clicked
 def on_calculate():
 
     result = None
@@ -27,8 +31,7 @@ def on_calculate():
     result = calculate_pr(event_value, place_value)
     output_var.set(result)
     
-    # New graph button
-    graph_btn = tk.Button(frm, text="Graph", width=30, bg="purple", fg="white", command=on_calculate, relief="flat")
+    graph_btn = tk.Button(frm, text="Graph", width=30, bg="purple", fg="white", command=graph_result, relief="flat")
     
     if result is not None:
         graph_btn.grid(column=1, row=5, sticky='w')
