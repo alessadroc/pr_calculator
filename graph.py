@@ -38,6 +38,12 @@ class Graph:
         ax.scatter(x, y, color='purple', label='Data Points')
         ax.plot(x, lobf_y, color='black', linestyle='--', label='Line of Best Fit')
 
+        # User's actual placement (the red dot)
+        user_x = int(self.placement)
+        user_y = m * user_x + b # logic for y coordinate of users place
+        ax.plot(user_x, user_y, 'ro', markersize=8, label=f'Your Placement {self.placement}')
+
+        # Other graph details
         ax.set_title(f"{self.event} Placement vs Points")
         ax.set_xlabel("Placement")
         ax.set_ylabel("Points")

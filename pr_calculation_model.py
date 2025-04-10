@@ -50,7 +50,6 @@ def calculate_pr(event, place):
             pr_bracket = events.performance_evaluation_finals()
 
         # Interpolation logic
-
         sorted_brackets = sorted(pr_bracket.items(), key=lambda x: x[0][0])
 
         for (low, high), pr_value in sorted_brackets:
