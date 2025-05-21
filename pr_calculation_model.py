@@ -70,6 +70,8 @@ def calculate_pr(event, place):
             if high1 < rank < low2:
                 lower_bound = (high1, pr1)
                 upper_bound = (low2, pr2)
+            
+            print(high2)
         
         # If placement falls between two defined ranges
         if lower_bound and upper_bound:
