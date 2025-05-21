@@ -1,9 +1,10 @@
 import tkinter as tk
+import numpy as np
 from tkinter import ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-import numpy as np
 from events import Events
+from pr_calculation_model import calculate_pr
 
 class Graph:
     def __init__(self, root, event, placement):
@@ -40,7 +41,7 @@ class Graph:
 
         # User's actual placement (the red dot)
         user_x = int(self.placement)
-        user_y = m * user_x + b # logic for y coordinate of users place
+        user_y = calculate_pr(self.event, self.placement) # logic for y coordinate of users place
         ax.plot(user_x, user_y, 'ro', markersize=8, label=f'Your Placement {self.placement}')
 
         # Other graph details
