@@ -21,7 +21,7 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 ## Future Plans
 
 - More accurate calculation models beyond linear interpolation 
-- Support all PR events, finals/opens clearly distinguished
+- Support FNCS Finals and its qualifier type events
 
 ## Tech Stack
 
