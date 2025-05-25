@@ -32,8 +32,19 @@ def graph_result():
       exception_lbl = tk.Label(exception_window, text="Cannot create graph for this value.", pady=50, padx=50)  
       exception_lbl.pack()
     '''
-    result_graph = Graph(root, event.get(), placement.get())
-    result_graph.window()
+    try:
+        on_calculate() # Just to update the result label.
+        result_graph = Graph(root, event.get(), placement.get())
+        result_graph.window()
+
+    except ValueError:
+      # Error window
+
+      exception_window = tk.Tk()
+      exception_window.title("Error")
+
+      exception_lbl = tk.Label(exception_window, text="Cannot create graph for this value.", pady=50, padx=50)  
+      exception_lbl.pack()
 
 # Do this when calculate is clicked
 def on_calculate():
