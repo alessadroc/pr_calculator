@@ -18,17 +18,22 @@ output_var = tk.StringVar(value="0")
 
 # Do this when Graph is clicked
 def graph_result():
+    # problematic code; logic is correct but doesn't reset after the user hits the graph btn after invalid input
+    '''
     try:
         inted_place = int(event.get())
-        if 0 < inted_place <= 10000:
+        if not 0 < inted_place <= 10000:
             result_graph = Graph(root, event.get(), placement.get())
             result_graph.window()
     except ValueError:
       exception_window = tk.Tk()
-      exception_window.title("Catastrophic Failure")
+      exception_window.title("Error")
 
       exception_lbl = tk.Label(exception_window, text="Cannot create graph for this value.", pady=50, padx=50)  
       exception_lbl.pack()
+    '''
+    result_graph = Graph(root, event.get(), placement.get())
+    result_graph.window()
 
 # Do this when calculate is clicked
 def on_calculate():

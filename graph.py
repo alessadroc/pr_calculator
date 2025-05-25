@@ -42,7 +42,7 @@ class Graph:
         # User's actual placement (the red dot)
         user_x = int(self.placement)
         user_y = calculate_pr(self.event, self.placement) # logic for y coordinate of users place
-        ax.plot(user_x, user_y, 'ro', markersize=8, label=f'Your Placement {self.placement}')
+        ax.plot(user_x, user_y, 'ro', markersize=8, label=f'Your Placement: {self.placement}')
 
         # Other graph details
         ax.set_title(f"{self.event} Placement vs Points")
