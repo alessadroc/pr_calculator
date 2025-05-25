@@ -15,7 +15,7 @@ def calculate_pr(event, place):
         
         elif event == "Solo Cash Cup Finals":
             if rank > 600:
-               return "Rank is too high."
+               return "Rank is too low."
             
             pr_bracket = events.solo_cash_cup_finals()
 
@@ -45,9 +45,15 @@ def calculate_pr(event, place):
         
         elif event == "Performance Evaluation Finals":
             if rank > 33:
-                return "Rank is too high."
+                return "Rank is too low."
             
             pr_bracket = events.performance_evaluation_finals()
+        
+        elif event == "FNCS Showdown":
+            if rank > 10000:
+                return "Rank is too low."
+            
+            pr_bracket = events.fncs_showdown()
 
         # Interpolation logic
         sorted_brackets = sorted(pr_bracket.items(), key=lambda x: x[0][0])
