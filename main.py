@@ -1,112 +1,77 @@
-import tkinter as tk
-from tkinter import ttk
-from PIL import Image, ImageTk
+import os
+from dotenv import load_dotenv
+
 from pr_calculation_model import calculate_pr
 from graph import Graph
+import discord
+from discord.ext import commands
+from discord import app_commands
 
-# Fundamentals
-root = tk.Tk()
-root.title("Fortnite Power Ranking Calculator")
+load_dotenv('.env')
+Token = os.getenv("DISCORD_TOKEN")
 
-icon = Image.open('pr_icon.png')
-photo = ImageTk.PhotoImage(icon)
-root.wm_iconphoto(False, photo)
+class Client(commands.Bot):
+    async def on_ready(self):
+        print(f"Logged on as {self.user} successfully.")
+        
+        try:
+            guild = discord.Object(id = 1371811106590425140)
+            synced = await self.tree.sync(guild=guild)
+            print(f"Synced {len(synced)} commands to {guild.id}")
 
-event = tk.StringVar()
-placement = tk.StringVar(root)
-output_var = tk.StringVar(value="0")
+        except Exception as e:
+            print(f"Error syncing the commands: {e}")
+        
 
-# Do this when Graph is clicked
-def graph_result():
-    # problematic code; logic is correct but doesn't reset after the user hits the graph btn after invalid input
-    '''
-    try:
-        inted_place = int(event.get())
-        if not 0 < inted_place <= 10000:
-            result_graph = Graph(root, event.get(), placement.get())
-            result_graph.window()
-    except ValueError:
-      exception_window = tk.Tk()
-      exception_window.title("Error")
+    async def on_message(self, message):
+        if message.author == self.user:
+            return
+        
+        if message.content.startswith("hello"):
+            await message.channel.send(f"Hi there {message.author}!")
 
-      exception_lbl = tk.Label(exception_window, text="Cannot create graph for this value.", pady=50, padx=50)  
-      exception_lbl.pack()
-    '''
-    try:
-        on_calculate() # Just to update the result label.
-        result_graph = Graph(root, event.get(), placement.get())
-        result_graph.window()
+    async def on_reaction_add(self, reaction, user):
+        await reaction.message.channel.send(f"Hi {user}, you reacted using {reaction}!")
 
-    except ValueError:
-      # Error window
+intents = discord.Intents.default()
+intents.message_content = True
+client = Client(command_prefix = "/", intents=intents) # command prefix is outdated, note this for changing later on
 
-      exception_window = tk.Tk()
-      exception_window.title("Error")
+GUILD_ID = discord.Object(id = 1371811106590425140)
 
-      exception_lbl = tk.Label(exception_window, text="Cannot create graph for this value.", pady=50, padx=50)  
-      exception_lbl.pack()
+# test hello command
+@client.tree.command(name="hello", description="Returns a greeting!", guild=GUILD_ID)
+async def sayHello(interaction: discord.Interaction):
+    await interaction.response.send_message("Hi there!") # respond to this interaction by sending a message
 
-# Do this when calculate is clicked
-def on_calculate():
+# main calculation command
+@client.tree.command(name="calculatepr", description="Predicts PR gain by event name and placement", guild=GUILD_ID)
+async def calculatepr(interaction: discord.Interaction, event: str, placement: int):
+    await interaction.response.send_message(f"Calculating PR for event {event} and placement {placement}")
 
-    result = None
-    event_value = event.get()
-    place_value = placement.get()
+    print(f"Calculating PR for event {event}, and placement {placement} by requests of {interaction.user}")
 
-    result = calculate_pr(event_value, place_value)
-    output_var.set(result)
-    
-    graph_btn = tk.Button(frm, text="Graph", width=30, bg="purple", fg="white", command=graph_result, relief="flat")
-    
-    if result is not None:
-        graph_btn.grid(column=1, row=5, sticky='w')
-    else:
-        graph_btn.destroy()
+    result = calculate_pr(str(event), int(placement))
 
-# Frame
-frm = tk.Frame(root, padx=5, pady=5)
-frm.grid()
+    print(f"sending {result} to the server")
 
-# Labels
-dropdown_lbl = tk.Label(frm, text="Event:", anchor="w", pady=5)
-dropdown_lbl.grid(column=0, row=1, sticky="w")
+    msg = await interaction.original_response()
+    await msg.edit(content=f"{str(result)} PR for the arguments you provided")
 
-entry_label = tk.Label(frm, text="Rank for this event: #", anchor="w", pady=5)
-entry_label.grid(column=0, row=2, sticky="w")
+# list command
+@client.tree.command(name="events", description="Lists all supported tournaments", guild=GUILD_ID)
+async def events(interaction: discord.Interaction):
+    tournaments = ["Solo Cash Cup Opens", 
+                   "Solo Cash Cup Finals", 
+                   "FNCS Division 1", 
+                   "FNCS Division 2", 
+                   "FNCS Division 3", 
+                   "Performance Evaluation Opens", 
+                   "Performance Evaluation Opens",
+                   "FNCS Showdown"]
 
-# Dropdown
-combo = ttk.Combobox(
-    frm,
-    state="readonly",
-    width=30,
-    textvariable=event,
-    values=[
-        "Solo Cash Cup Opens", 
-        "Solo Cash Cup Finals", 
-        "FNCS Division 1", 
-        "FNCS Division 2", 
-        "FNCS Division 3", 
-        "Performance Evaluation Opens",
-        "Performance Evaluation Finals",
-        "FNCS Showdown"
-        ],
-)
-combo.grid(column=1, row=1, sticky="w")
+    await interaction.response.send_message(f"{tournaments}")
 
-# Placement Entry
-entry = tk.Entry(frm, width=30, textvariable=placement, relief="flat", border=3)
-entry.grid(column=1, row=2, sticky="w")
+client.run(token=Token)
 
-# Calculate Button
-button = tk.Button(frm, text="Calculate", width=30, bg="purple", fg="white", command=on_calculate, relief="flat")
-button.grid(column=1, row=3, sticky="w")
-
-# Output Labels
-output_text_lbl = tk.Label(frm, text="PR Gained", anchor="w", pady=5)
-output_text_lbl.grid(column=0, row=4, sticky="w")
-
-output_lbl = tk.Label(frm, font=("System", 15), fg="purple", textvariable=output_var, anchor="w", pady=10)
-output_lbl.grid(column=1, row=4, sticky="w")
-
-# Run the application
-root.mainloop()
+# Server ID for dev server; 1380426485554216982
