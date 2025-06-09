@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-
 from pr_calculation_model import calculate_pr
 from graph import Graph
 import discord
