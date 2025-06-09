@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Power Ranking Calculator is a simple GUI application that calculates the PR (Power Ranking) gained based on a player's placement in various Fortnite tournaments. The program allows users to select an event, input their ranking, and receive a PR estimate.
+The Power Ranking Calculator is a simple Discord Application that calculates the PR (Power Ranking) gained based on a player's placement in various Fortnite tournaments. The program allows users to use a command where they input an event, ranking, and receive a PR estimate.
 
 Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that regular linear interpolation models seem to achieve this already.
 
 ## Features
 
-- User-Friendly Interface
+- User-Friendly commands
 - Event-Specific PR Calculations
 - Modular Design
 
@@ -26,9 +26,8 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 ## Tech Stack
 
 - Python 3.x
-- Tkinter (built-in with Python)
-- PIL (for custom PR symbols)
 - Matplotlib (for graphing)
+- Discord.py
 
 ## Supported Events
 
@@ -37,10 +36,9 @@ Ideally, an accuracy of at least 95% is to be achieved in all cups. Note that re
 - Performance Evaluation Finals
 - FNCS Divisionals (1, 2, 3) - All opens.
 
-## Contribute/Run
+## Run
 
 1. Clone or download the repository.
-2. Run `main.py` using Python:
-
-   ```bash
-   python main.py
+2. Invite the discord bot to your server using https://discord.com/oauth2/authorize?client_id=1380424855668658416
+3. Use commands /calculatepr <event name> <placement> to determine results.
+4. Use /tournaments to see supported events. 
