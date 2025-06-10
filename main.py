@@ -38,24 +38,23 @@ client = Client(command_prefix = "/", intents=intents) # command prefix is outda
 
 GUILD_ID = discord.Object(id = 1371811106590425140)
 
-# test hello command
-@client.tree.command(name="hello", description="Returns a greeting!", guild=GUILD_ID)
-async def sayHello(interaction: discord.Interaction):
-    await interaction.response.send_message("Hi there!") # respond to this interaction by sending a message
-
 # main calculation command
 @client.tree.command(name="calculatepr", description="Predicts PR gain by event name and placement", guild=GUILD_ID)
 async def calculatepr(interaction: discord.Interaction, event: str, placement: int):
+    
     await interaction.response.send_message(f"Calculating PR for event {event} and placement {placement}")
 
     print(f"Calculating PR for event {event}, and placement {placement} by requests of {interaction.user}")
-
-    result = calculate_pr(str(event), int(placement))
+    
+    event = str(event)
+    placement = int(placement)
+    
+    result = calculate_pr(event, placement)
 
     print(f"sending {result} to the server")
 
     msg = await interaction.original_response()
-    await msg.edit(content=f"{str(result)} PR for the arguments you provided")
+    await msg.edit(content=f"**{str(result)}** PR for placing #{placement} in {event}")
 
 # list command
 @client.tree.command(name="events", description="Lists all supported tournaments", guild=GUILD_ID)
@@ -67,9 +66,10 @@ async def events(interaction: discord.Interaction):
                    "FNCS Division 3", 
                    "Performance Evaluation Opens", 
                    "Performance Evaluation Opens",
-                   "FNCS Showdown"]
-
-    await interaction.response.send_message(f"{tournaments}")
+                   "FNCS Showdown"
+                   ]
+    
+    await interaction.response.send_message(f"Supported Tournaments: {tournaments}")
 
 client.run(token=Token)
 
