@@ -1,26 +1,21 @@
-import tkinter as tk
 import numpy as np
-from tkinter import ttk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from io import BytesIO
 from matplotlib.figure import Figure
 from events import Events
 from pr_calculation_model import calculate_pr
 
 class Graph:
-    def __init__(self, root, event, placement):
-        self.root = root
+    def __init__(self, event, placement, user):
         self.event = event
         self.placement = placement
-
-    def window(self):
-        graph_window = tk.Toplevel(self.root)
-        graph_window.title(f"Graph of {self.event} placement")
-
+        self.user = user
+    
+    def get_png_bytes(self):
         fig = self.plot_graph()
-
-        canvas = FigureCanvasTkAgg(fig, master=graph_window)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        buf = BytesIO()
+        fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
+        buf.seek(0)
+        return buf.getvalue()
 
     def plot_graph(self):
         data = self.lobf(self.event)
@@ -42,10 +37,10 @@ class Graph:
         # User's actual placement (the red dot)
         user_x = int(self.placement)
         user_y = calculate_pr(self.event, self.placement) # logic for y coordinate of users place
-        ax.plot(user_x, user_y, 'ro', markersize=8, label=f'Your Placement: {self.placement}')
+        ax.plot(user_x, user_y, 'ro', markersize=8, label=f"{self.user}'s Placement: {self.placement}")
 
         # Other graph details
-        ax.set_title(f"{self.event} Placement vs Points")
+        ax.set_title(f"{self.event} PR Curve")
         ax.set_xlabel("Placement")
         ax.set_ylabel("Points")
         ax.legend()
@@ -63,7 +58,6 @@ class Graph:
 
         ranges_dict = func()
         xy = []
-
         for placement_range, points in ranges_dict.items():
             start, end = placement_range
             for placement in range(start, end + 1):
