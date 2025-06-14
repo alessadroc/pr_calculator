@@ -18,8 +18,8 @@ class Graph:
         return buf.getvalue()
 
     def plot_graph(self):
+        # Data organisin
         data = self.lobf(self.event)
-
         x, y = zip(*data)
         x = np.array(x)
         y = np.array(y)
