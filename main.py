@@ -38,15 +38,18 @@ class View(discord.ui.View):
 
     @discord.ui.button(label="Show Graph", style=discord.ButtonStyle.blurple, emoji="📈")
     async def button_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
-        graph = Graph(event=self.event, placement=self.placement, user=interaction.user)
+        print(f"Generating graph by request of {interaction.user}")
 
         # graph calling and sending to message
+        graph = Graph(event=self.event, placement=self.placement, user=interaction.user)
         fig = graph.plot_graph()
         buf = BytesIO()
         fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
         buf.seek(0)
-
         file = discord.File(fp=buf, filename="graph.png")
+
+        print(f"Sending Graph to Server by request of {interaction.user}")
+
         await interaction.response.send_message(file=file)
 
 intents = discord.Intents.default()
