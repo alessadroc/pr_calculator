@@ -55,13 +55,35 @@ class View(discord.ui.View):
 intents = discord.Intents.default()
 intents.message_content = True
 client = Client(command_prefix="/", intents=intents)
-
 GUILD_ID = discord.Object(id=1371811106590425140)
 
+# Available tournaments
+tournaments = [
+        "Solo Cash Cup Opens", 
+        "Solo Cash Cup Finals", 
+        "FNCS Division 1",
+        "FNCS Division 2", 
+        "FNCS Division 3", 
+        "Performance Evaluation Opens",
+        "Performance Evaluation Finals", 
+        "FNCS Showdown"
+    ]
+
+async def event_autocomplete(interaction: discord.Interaction, current: str):
+    return [
+        app_commands.Choice(name=event, value=event)
+        for event in tournaments if current.lower() in event.lower()
+    ][:25] 
+
+# Main Calculation command and also the autocomplete options
 @client.tree.command(name="calculatepr", description="Predicts PR gain by event name and placement", guild=GUILD_ID)
+@app_commands.describe(event="Select the event", placement="Your placement")
+@app_commands.autocomplete(event=event_autocomplete)
 async def calculatepr(interaction: discord.Interaction, event: str, placement: int):
     await interaction.response.send_message(f"Calculating PR for event {event} and placement {placement}")
     print(f"Calculating PR for event {event}, and placement {placement} by request of {interaction.user}")
+
+    event = event.lower()
 
     result = calculate_pr(event, placement)
 
@@ -70,6 +92,7 @@ async def calculatepr(interaction: discord.Interaction, event: str, placement: i
 
     view = View(event=event, placement=placement)
     await msg.edit(content=f"**{result}** PR for placing #{placement} in {event}", view=view)
+
 
 @client.tree.command(name="events", description="Lists all supported tournaments", guild=GUILD_ID)
 async def events(interaction: discord.Interaction):
